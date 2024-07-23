@@ -1,0 +1,83 @@
+* { margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+
+body { min-height: 100dvh; }
+input, button, textarea, select { font: inherit; }
+
+p { text-wrap: pretty; }
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+
+img, video, svg { height: auto; max-width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition: none;
+  }
+}
+
+#root {
+    font-family: "Inter";
+    background-color: #1e1e1e;
+    width: 100%;
+    display: grid;
+    place-content: center;
+    height: 100vh;
+}
+.all {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputPrompt {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.inputPrompt input {
+    background: #d9d9d9;
+    border-radius: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+    color: #535bf2f0;
+    border: 0;
+    padding: 0 20px;
+    outline: none;
+}
+
+.inputPrompt button {
+    border: 0;
+    padding: 5px 15px;
+    font-size: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    color: #d9d9d9;
+    background: #535bf2f0;
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.inputPrompt button:hover {
+    opacity: 0.9;
+}
+
+.textContainer {
+    border-radius: 10px;
+    padding: 1em;
+    display: block;
+    overflow-x: auto;
+    background: rgb(40, 42, 54);
+    color: rgb(248, 248, 242);
+}
+
+.normalText {
+    font-weight: 600;
+    font-size: 15px;
+}
