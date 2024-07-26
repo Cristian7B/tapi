@@ -10,7 +10,8 @@ export function KeyboardText() {
     const [lenguaje, setLenguaje] = useState("")
     const [textShow, setTextShow] = useState("")
 
-    const {apiKey, setApiKey} = useState(null)
+    const [apiKey, setApiKey] = useState(null)
+
 
     console.log(apiKey)
 
@@ -24,6 +25,7 @@ export function KeyboardText() {
     const handlePrompt = event => {
         setPromptUser(event.target.value)
     }
+
     const receiveText = async () => {
         const keyboardTextShow = await generateTextFromPrompt(apiKey, isCode, lenguaje, promptUser)
         setTextShow(keyboardTextShow)
