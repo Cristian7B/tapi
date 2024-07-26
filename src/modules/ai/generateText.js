@@ -2,12 +2,12 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateText } from "ai";
 import { formatCodeString } from "./utils/codeFormatted";
 
-const google = createGoogleGenerativeAI({
-    apiKey: import.meta.env.VITE_GOOGLE_GENERATIVE_AI_API_KEY,
-    baseURL: "https://generativelanguage.googleapis.com/v1beta",
-});
 
-export async function generateTextFromPrompt(isCode, lenguaje, promptUser) {
+export async function generateTextFromPrompt(apiKey, isCode, lenguaje, promptUser) {
+    const google = createGoogleGenerativeAI({
+        apiKey: apiKey,
+        baseURL: "https://generativelanguage.googleapis.com/v1beta",
+    });
     
     const { text } = isCode ? await generateText({
         model: google('models/gemini-1.5-flash-latest'),

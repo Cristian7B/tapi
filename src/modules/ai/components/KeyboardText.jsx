@@ -9,7 +9,15 @@ export function KeyboardText() {
     const [isCode, setIsCode] = useState(false)
     const [lenguaje, setLenguaje] = useState("")
     const [textShow, setTextShow] = useState("")
-    
+
+    const {apiKey, setApiKey} = useState(null)
+
+    console.log(apiKey)
+
+    const handleApiKey = (event) => {
+        setApiKey(event.target.value)
+    }
+
     const idInput = useId()
     const checkboxCode = useId()
 
@@ -17,7 +25,7 @@ export function KeyboardText() {
         setPromptUser(event.target.value)
     }
     const receiveText = async () => {
-        const keyboardTextShow = await generateTextFromPrompt(isCode, lenguaje, promptUser)
+        const keyboardTextShow = await generateTextFromPrompt(apiKey, isCode, lenguaje, promptUser)
         setTextShow(keyboardTextShow)
     }
 
@@ -35,6 +43,7 @@ export function KeyboardText() {
         <div className="all">
             <div className="inputPrompt">
                 <div className="inputAll">
+                    <input type="text" placeholder="apikey" onChange={handleApiKey}/>
                     <input value={promptUser} placeholder={promptUser} type="text" id={idInput} onChange={handlePrompt}/>
                     
                     <input onChange={handleIsCode} id={checkboxCode} type="checkbox" />

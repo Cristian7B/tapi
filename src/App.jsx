@@ -7,14 +7,14 @@ import { Footer } from "./modules/principalpage/components/Footer"
 
 function App() {
   return (
-    <Router>
-      <NavBar/>
-      <Routes>
-        <Route path="/" element={<Landing/>}/>
-        <Route path="/practice" element={<KeyboardText/>}/>
-      </Routes>
-      <Footer/>
-    </Router>  
+      <Router>
+        <NavBar/>
+        <Routes>
+          <Route path="/" element={<Landing/>}/>
+            <Route path="/practice" element={<KeyboardText/>}/>
+        </Routes>
+        <Footer/>
+      </Router>  
   )
 }
 
