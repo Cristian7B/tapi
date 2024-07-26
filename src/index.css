@@ -20,6 +20,7 @@ img, video, svg { height: auto; max-width: 100%; }
 }
 
 :root {
+    --color-page: #252323;
     background-color: #252323;
 }
 
@@ -35,6 +36,8 @@ img, video, svg { height: auto; max-width: 100%; }
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 100vh;
+    justify-content: center;
 }
 
 .inputPrompt {
@@ -113,6 +116,11 @@ img, video, svg { height: auto; max-width: 100%; }
     font-weight: 800;
 }
 
+.contentNav .left h1 a {
+    text-decoration: none;
+    color: #EEE1B3;
+}
+
 .contentNav .right {
     display: flex;
     align-items: center;
@@ -121,10 +129,20 @@ img, video, svg { height: auto; max-width: 100%; }
     font-weight: 500;
 }
 
+.right a {
+    text-decoration: none;
+    color: #EEE1B3;
+}
+
 .containerHeader {
     display: flex;
     height: 100vh;
     align-items: center;
+    /* background-position: center center;
+    background-repeat: no-repeat;
+    background-size: auto, auto;
+    background-clip: padding-box;
+    padding-bottom: 200px; */
 }
 
 .descriptionPage {
@@ -181,6 +199,16 @@ img, video, svg { height: auto; max-width: 100%; }
     color: #EEE1B3;
     font-size: 22px;
     margin-top: 10px;
+    transition: 0.1s all ease-in;
+    cursor: pointer;
+}
+
+.buttonGo:hover {
+    background-color: #40686D;
+}
+
+.buttonLogin:hover {
+    background: rgba(255, 234, 157, 0.842);
 }
 
 .buttonLogin {
@@ -198,4 +226,44 @@ img, video, svg { height: auto; max-width: 100%; }
 
 .buttonLogin img {
     width: 20px;
+}
+
+.containerLanding {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(var(--color-page), var(--color-page) 0%, rgba(22, 22, 22, 0) 50%, var(--color-page)), url(./assets//grid.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: auto, auto;
+    background-clip: padding-box;
+    padding-bottom: 200px;
+}
+
+.footerContainer {
+    display: flex;
+    align-items: center;
+    width: 900px;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.socialMedia {
+    display: flex;
+    align-items: center;
+}
+
+.leftSide {
+    color: #EEE1B3;
+    font-weight: 600;
+}
+
+.rightSide {
+    display: flex;
+    gap: 5px;
+}
+
+.socialMedia img {
+    width: 25px;
 }

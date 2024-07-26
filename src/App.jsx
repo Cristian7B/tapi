@@ -1,19 +1,20 @@
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { formatCodeString } from "./modules/ai/utils/codeFormatted";
-import { KeyboardText } from "./modules/ai/components/KeyboardText";
 import {Landing} from "./modules/principalpage/components/Landing"
-import icon from "./assets/icon.svg"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { NavBar } from "./modules/principalpage/components/NavBar"
+import { KeyboardText } from "./modules/ai/components/KeyboardText"
+import { Footer } from "./modules/principalpage/components/Footer"
+
+
 function App() {
   return (
-    <>
-      <Landing/>
-      {/* <KeyboardText/> */}
-      <div style={{height:"1000px"}}>
-
-      </div>
-    </>
-
+    <Router>
+      <NavBar/>
+      <Routes>
+        <Route path="/" element={<Landing/>}/>
+        <Route path="/practice" element={<KeyboardText/>}/>
+      </Routes>
+      <Footer/>
+    </Router>  
   )
 }
 
