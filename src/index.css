@@ -19,13 +19,16 @@ img, video, svg { height: auto; max-width: 100%; }
   }
 }
 
+:root {
+    background-color: #252323;
+}
+
 #root {
     font-family: "Inter";
-    background-color: #1e1e1e;
     width: 100%;
-    display: grid;
-    place-content: center;
-    height: 100vh;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 .all {
     max-width: 600px;
@@ -46,7 +49,7 @@ img, video, svg { height: auto; max-width: 100%; }
     font-style: normal;
     font-weight: 700;
     line-height: 140%;
-    color: #535bf2f0;
+    color: #EEE1B3;
     border: 0;
     padding: 0 20px;
     outline: none;
@@ -59,7 +62,7 @@ img, video, svg { height: auto; max-width: 100%; }
     border-radius: 10px;
     font-weight: 700;
     color: #d9d9d9;
-    background: #535bf2f0;
+    background: #EEE1B3;
     cursor: pointer;
     transition: all ease 0.3s;
 }
@@ -80,4 +83,119 @@ img, video, svg { height: auto; max-width: 100%; }
 .normalText {
     font-weight: 600;
     font-size: 15px;
+}
+
+.navBarContainer {
+    margin-top: 20px;
+    width: 650px;
+    height: fit-content;
+/* From https://css.glass */
+    background: rgba(238, 225, 179, 0.55);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10.7px);
+    -webkit-backdrop-filter: blur(10.7px);
+    border-radius: 50px;
+    padding: 10px 40px;
+    position: fixed;
+    z-index: 1;
+}
+
+.contentNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #EEE1B3;
+}
+
+.contentNav .left h1 {
+    font-size: 35px;
+    font-weight: 800;
+}
+
+.contentNav .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.containerHeader {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+}
+
+.descriptionPage {
+    display: flex;
+    align-items: center;
+    height: fit-content;
+}
+
+.textDescription {
+    width: 600px;
+    color: #EEE1B3;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.textDescription h1 {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 50px;
+}
+
+.textDescription p {
+    margin-top: 14px;
+    font-size: 30;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.textDescription h1 span {
+    font-family: "Calistoga";
+    color: #DB3A34;
+    font-size: 80px;
+    position: absolute;
+    top: 35px;
+    transform: rotate(-10deg);
+}
+
+.containerRedirectButtons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.buttonGo, .buttonLogin{
+    outline: 0;
+    border: 0;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 800;
+    background-color: #177E89 ;
+    color: #EEE1B3;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.buttonLogin {
+    display: flex;
+    align-items: center;
+    color: #177E89;
+    background-color: #EEE1B3;
+    gap: 5px;
+}
+
+.buttonLogin span {
+    display: flex;
+    align-items: center;
+}
+
+.buttonLogin img {
+    width: 20px;
 }
