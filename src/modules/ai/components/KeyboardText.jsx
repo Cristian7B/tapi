@@ -3,6 +3,7 @@ import { generateTextFromPrompt } from "../generateText"
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight"
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import { selectCodeType } from "../utils/consts"
+import { Header } from "./Header"
 
 export function KeyboardText() {
     const [promptUser, setPromptUser] = useState("Hazme un texto de 40 palabras sobre caperucita roja.")
@@ -40,7 +41,8 @@ export function KeyboardText() {
 
     return (
         <div className="all">
-            <div className="inputPrompt">
+            <Header handleApiKey={handleApiKey}/>
+            {/* <div className="inputPrompt">
                 <div className="inputAll">
                     <input type="text" placeholder="apikey" onChange={handleApiKey}/>
                     <input value={promptUser} placeholder={promptUser} type="text" id={idInput} onChange={handlePrompt}/>
@@ -58,7 +60,7 @@ export function KeyboardText() {
                 </div>
                 <button onClick={receiveText}>Enviar</button>
             </div>
-            <div className="textContainer">
+            <div style={{display: "none"}} className="textContainer">
                 {
                     isCode ? 
                         (
@@ -67,7 +69,7 @@ export function KeyboardText() {
                             </SyntaxHighlighter>
                         ) : <p className="normalText">{textShow}</p>   
                 }
-            </div>
+            </div> */}
         </div>
     )
 }
