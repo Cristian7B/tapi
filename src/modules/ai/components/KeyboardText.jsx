@@ -12,15 +12,12 @@ export function KeyboardText() {
 
     const [apiKey, setApiKey] = useState(null)
 
-
-    console.log(apiKey)
-
     const handleApiKey = (event) => {
         setApiKey(event.target.value)
     }
 
     const idInput = useId()
-    const checkboxCode = useId()
+    const checkboxCode = useId()    
 
     const handlePrompt = event => {
         setPromptUser(event.target.value)
@@ -51,7 +48,7 @@ export function KeyboardText() {
                     <input onChange={handleIsCode} id={checkboxCode} type="checkbox" />
                     <label htmlFor={checkboxCode}>¿Es código?</label>
                     
-                    <select onChange={handleLanguage} name="language">
+                    <select className="mt-6" onChange={handleLanguage} name="language">
                         {
                             selectCodeType.map(language => (
                                 <option key={language} value={language}>{language}</option>

@@ -1,5 +1,7 @@
 import tapi from "../../../assets/tapi-svg.svg"
 import google from "../../../assets/google.svg"
+import { Link } from "react-router-dom"
+
 export function Header() {
     return (
         <div className="containerHeader">
@@ -12,11 +14,12 @@ export function Header() {
                         Mejora tus habilidades mientras practicas con contenido adaptado a tu nivel y estilo.
                     </p>
                     <div className="containerRedirectButtons">
-                        <button className="buttonGo">Empezar</button>
+                        <button className="buttonGo"><Link to="/practice">Empezar</Link></button>
                         <button className="buttonLogin"><span><img src={google} alt="" /></span>Iniciar sesion</button>
                     </div>
                 </div>
             </header>
         </div>
+        
     )
 }
