@@ -353,6 +353,7 @@ img, video, svg { height: auto; max-width: 100%; }
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all ease-out 0.3s;
 }
 
 .headerContainerPractice h1{
@@ -382,6 +383,7 @@ img, video, svg { height: auto; max-width: 100%; }
     display: flex;
     flex-direction: column;
     gap: 7px;
+    width: 840px;
 }
 
 .settings {
@@ -432,4 +434,14 @@ img, video, svg { height: auto; max-width: 100%; }
     gap: 50px;
     display: flex;
     flex-direction: column;
+}
+
+.loaderContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.oficialSwitch span {
+    background-color: #177E89;
 }

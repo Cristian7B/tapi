@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-export function Button({children}) {
+export function Button({children, onClick}) {
     return (
-        <button className="buttonGo"><Link to="/practice">{children}</Link></button>
+        <button onClick={onClick} className="buttonGo"><Link to="/practice">{children}</Link></button>
     )
 }
