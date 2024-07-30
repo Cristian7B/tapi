@@ -7,6 +7,7 @@ import { useAi } from "../hooks/useAi";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { PulseLoader } from "react-spinners";
+import { saveApi } from "../local/localApiKey";
 
 export function Prompt() {
     const {apiKey, prompt, setPrompt} = useAi()
@@ -21,6 +22,7 @@ export function Prompt() {
     }
     const receiveText = async () => {   
         setLoading(true)
+        saveApi(apiKey)
         setShowTextInput(prevState => !prevState)
         try {
             const keyboardTextShow = await generateTextFromPrompt(apiKey, isCode, lenguaje, prompt);

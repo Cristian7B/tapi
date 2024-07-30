@@ -154,16 +154,17 @@ img, video, svg { height: auto; max-width: 100%; }
 
 .textContainer {
     border-radius: 10px;
-    padding: 1em;
+    padding: 50px;
     display: block;
     overflow-x: auto;
-    background: rgb(40, 42, 54);
+    background-color: hsl(0, 1%, 20%);
     color: rgb(248, 248, 242);
 }
 
 .normalText {
     font-weight: 600;
-    font-size: 15px;
+    font-size: 22px;
+    color: #EEE1B3;
 }
 
 .navBarContainer {
