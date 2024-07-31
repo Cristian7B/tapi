@@ -4,7 +4,11 @@
 
 @layer base {
   :root {
-
+    --green: #00b755;
+    --yellow: #daaf38;
+    --red: #ca4754;
+    --black: #222;
+    --gray: #999;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
@@ -445,4 +449,55 @@ img, video, svg { height: auto; max-width: 100%; }
 
 .oficialSwitch span {
     background-color: #177E89;
+}
+
+.normalText p {
+    font-family: "Jetbrains mono";
+    display: flex;
+    gap: 3px 8px;
+    flex-wrap: wrap;
+}
+
+.controlInput {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    top: 0;
+    /* display: none; */
+}
+
+x-letter {
+    color: var(--gray);
+    position: relative;
+    &.active::before {
+        content: "|";
+        color: #EEE1B3;
+        font-size: 20px;
+        position: absolute;
+        left: -65%;
+        animation: 1s blink infinite ease-in-out;
+    }
+
+    &.active.is-last::before {
+        left: 65%;
+    }
+
+    &.correct {
+        color: var(--green);
+    }
+
+    &.incorrect {
+        color: var(--red);
+    }
+    
+}
+
+@keyframes blink {
+    0%, 25% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0;
+    }
 }

@@ -4,18 +4,32 @@ import { Textarea } from "../../../components/ui/textarea";
 import { Button } from "../../principalpage/components/Button";
 import { generateTextFromPrompt } from "../generateText";
 import { useAi } from "../hooks/useAi";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { PulseLoader } from "react-spinners";
 import { saveApi } from "../local/localApiKey";
+import { Practice } from "./Practice";
 
 export function Prompt() {
     const {apiKey, prompt, setPrompt} = useAi()
     const [isCode, setIsCode] = useState(false)
     const [lenguaje, setLenguaje] = useState("")
+    const [opacity, setOpacity] = useState(false)
     const [textShow, setTextShow] = useState("")
     const [loading, setLoading] = useState(false);
     const {showTextInput, setShowTextInput, style, styleOf} = useAi()
+
+    const firstWordRef = useRef(null);
+    const firstLetterRef = useRef(null);
+
+    useEffect(() => {
+        if (firstWordRef.current && firstLetterRef.current) {
+            firstWordRef.current.classList.add('active');
+            firstLetterRef.current.classList.add('active');
+        }
+    }, []);
+
+    const opacityStyle = {
+        opacity: opacity ? "0.6": "1"
+    }
 
     const handlePrompt = event => {
         setPrompt(event.target.value)
@@ -23,6 +37,7 @@ export function Prompt() {
     const receiveText = async () => {   
         setLoading(true)
         saveApi(apiKey)
+        setOpacity(prevState => !prevState)
         setShowTextInput(prevState => !prevState)
         try {
             const keyboardTextShow = await generateTextFromPrompt(apiKey, isCode, lenguaje, prompt);
@@ -34,12 +49,14 @@ export function Prompt() {
         }
     };
 
+
     const reset = () => {
         setShowTextInput(prevState => !prevState)
+        setOpacity(prevState => !prevState)
     }
     return (
         <div className="containerPrompt">
-            <div className="upLayout">
+            <div style={opacityStyle} className="upLayout">
                 <Button onClick={showTextInput ? receiveText : reset}>
                     {showTextInput ? "Generar": "Volver a generar"}
                 </Button>
@@ -52,17 +69,15 @@ export function Prompt() {
             </div>
             <Textarea style={style} onChange={handlePrompt} className="inputPromptUser" placeholder="Ingresa tu prompt para generar el texto."/>
             <div style={styleOf} className="textContainer">
-            {loading ? (
+            {
+                loading ? (
                     <div className="loaderContainer">
                         <PulseLoader color="#EEE1B3" speedMultiplier={1.2}/>
                     </div>
-                ) : isCode ? (
-                    <SyntaxHighlighter language={lenguaje} style={dracula}>
-                        {textShow}
-                    </SyntaxHighlighter>
                 ) : (
-                    <p className="normalText">{textShow}</p>
-                )}
+                    <Practice textShow={textShow}/>
+                )
+            }
             </div>
         </div>
     )
