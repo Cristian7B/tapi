@@ -9,7 +9,7 @@ import { saveApi } from "../local/localApiKey";
 import { Practice } from "./Practice";
 
 export function Prompt() {
-    const {apiKey, prompt, setPrompt} = useAi()
+    const {apiKey, prompt, setPrompt, isActive} = useAi()
     const [isCode, setIsCode] = useState(false)
     const [lenguaje, setLenguaje] = useState("")
     const [opacity, setOpacity] = useState(false)
@@ -55,8 +55,8 @@ export function Prompt() {
         setOpacity(prevState => !prevState)
     }
     return (
-        <div className="containerPrompt">
-            <div style={opacityStyle} className="upLayout">
+        <div style={{width: isActive ? "100%":"840px"}} className="containerPrompt">
+            <div style={{...opacityStyle, display: isActive ? "none": "flex"}} className="upLayout">
                 <Button onClick={showTextInput ? receiveText : reset}>
                     {showTextInput ? "Generar": "Volver a generar"}
                 </Button>

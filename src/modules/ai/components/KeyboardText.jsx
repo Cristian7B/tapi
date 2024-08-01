@@ -4,13 +4,14 @@ import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlig
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import { selectCodeType } from "../utils/consts"
 import { Header } from "./Header"
+import { useAi } from "../hooks/useAi"
 
 export function KeyboardText() {
     const [promptUser, setPromptUser] = useState("Hazme un texto de 40 palabras sobre caperucita roja.")
     const [isCode, setIsCode] = useState(false)
     const [lenguaje, setLenguaje] = useState("")
     const [textShow, setTextShow] = useState("")
-
+    const {isActive} = useAi()
     const [apiKey, setApiKey] = useState(null)
 
     const handleApiKey = (event) => {
@@ -40,7 +41,7 @@ export function KeyboardText() {
 
 
     return (
-        <div className="all">
+        <div style={{width: isActive ? "100%":"auto"}} className="all">
             <Header handleApiKey={handleApiKey}/>
             {/* <div className="inputPrompt">
                 <div className="inputAll">

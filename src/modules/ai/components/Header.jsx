@@ -3,7 +3,7 @@ import { useAi } from "../hooks/useAi";
 import { Prompt } from "./Prompt";
 
 export function Header() {
-    const { setApiKey, style } = useAi();
+    const { setApiKey, style, isActive } = useAi();
     const [valueInput, setValueInput] = useState("");
     const [placeholder, setPlaceholder] = useState(false);
 
@@ -24,7 +24,7 @@ export function Header() {
     }, [setApiKey]);
 
     return (
-        <header className="headerPractice">
+        <header style={{width: isActive ? "70%":"auto"}}  className="headerPractice">
             <div style={style} className="headerContainerPractice">
                 <h1>¡Es hora de <span>practicar</span>!</h1>
                 <input 
