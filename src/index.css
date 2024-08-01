@@ -475,7 +475,6 @@ img, video, svg { height: auto; max-width: 100%; }
     left: 0;
     opacity: 0;
     top: 0;
-    /* display: none; */
 }
 
 x-letter {

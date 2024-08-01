@@ -14,8 +14,61 @@ export function Practice({ textShow }) {
     console.log(firstTyping)
 
     useEffect(() => {
-        const keyDown = () => {
-            // Lógica para keydown
+        const keyDown = (event) => {
+            const $currentWord = paragraphRef.current.querySelector("x-word.active");
+            const $currentLetter = $currentWord.querySelector("x-letter.active")
+
+            const { key } = event
+
+            if (key === " ") {
+                // keyUp()
+                event.preventDefault()
+
+                const $nextWord = $currentWord.nextElementSibling
+                const $nextLetter = $nextWord.querySelector("x-letter")
+    
+                $currentWord.classList.remove("active", "marked")
+                $currentLetter.classList.remove("active")
+    
+                $nextWord.classList.add("active")
+                $nextLetter.classList.add("active")
+    
+                inputRef.current.value = ""
+    
+                const previousErrors = $currentWord.querySelectorAll("x-letter:not(.correct)"). length > 0
+    
+                const classToAdd = previousErrors ? "marked": "correct"
+                $currentWord.classList.add(classToAdd)
+    
+                return
+            }
+
+            if (key === "Backspace") {
+                const $prevWord = $currentWord.previousElementSibling
+                const $prevLetter = $currentLetter.previousElementSibling
+    
+                if (!$prevLetter && !$prevWord) {
+                    event.preventDefault()
+                    return 
+                }
+    
+                if (!$prevLetter) {
+                    event.preventDefault()
+                    $prevWord.classList.remove("marked")
+                    $prevWord.classList.add("active")
+                    
+                    const $letterToGo = $prevWord.querySelector("x-letter:last-child")
+    
+                    $currentLetter.classList.remove("active")
+                    $letterToGo.classList.add("active")
+    
+                    inputRef.current.value = [
+                        ...$prevWord.querySelectorAll("x-letter.correct", "x-letter.marked")
+                    ].map(el => {
+                        return el.classList.contains("correct") ? el.innerText : "ç"
+                    }).join("")
+                }
+            }
         };
 
         const keyUp = () => {
