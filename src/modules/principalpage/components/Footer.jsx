@@ -1,11 +1,13 @@
 import github from "../../../assets/github-dark.svg"
 import linkedin from "../../../assets/linkedin.svg"
 import discord from "../../../assets/discord.svg"
+import { useAi } from "../../ai/hooks/useAi"
 
 
 export function Footer() {
+    const {isActive} = useAi()
     return (
-        <footer className="footerContainer">
+        <footer style={{display: isActive ? "none": "flex"}} className="footerContainer">
             
             <div className="leftSide">
                 <p>&copy; Tapi. Todos los derechos reservados</p>

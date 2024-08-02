@@ -1,27 +1,57 @@
 import { useState, useEffect, useRef } from "react";
 import { useAi } from "../hooks/useAi";
 
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+} from "../../../components/ui/dialog"
+
 export function Practice({ textShow }) {
     const firstWordRef = useRef(null);
     const firstLetterRef = useRef(null);
     const inputRef = useRef(null);
     const paragraphRef = useRef(null);
-    
-    const {firstTyping, setFirstTyping} = useAi();
+
+    const [hasFinalized, setHasFinalized] = useState(false)
+
+    const {currentTime, setCurrentTime} = useAi()
+    const [initTime, setInitTime] = useState(false)
+    const [finalModal, setFinalModal] = useState(false)
+
+    const [wpmTotal, setWpmTotal] = useState(0)
+    const [accuracyTotal, setAccuracyTotal] = useState(0)
+
+    const {firstTyping, setFirstTyping, setHeaderStyle, setShowTextInput, setOpacity} = useAi();
     const {isActive, setIsActive} = useAi();
 
-    console.log(isActive)
-    console.log(firstTyping)
+    useEffect(() => {
+        if (!firstTyping) return;
+
+        const intervalId = setInterval(() => {
+            setCurrentTime(prevState => {
+                if (prevState === 1) {
+                    clearInterval(intervalId);
+                    finishGame();
+                }
+                return prevState - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [firstTyping]);
 
     useEffect(() => {
-        const keyDown = (event) => {
+        if (!hasFinalized) {        
+            const keyDown = (event) => {
             const $currentWord = paragraphRef.current.querySelector("x-word.active");
             const $currentLetter = $currentWord.querySelector("x-letter.active")
 
             const { key } = event
 
             if (key === " ") {
-                // keyUp()
+                keyUp()
                 event.preventDefault()
 
                 const $nextWord = $currentWord.nextElementSibling
@@ -146,11 +176,37 @@ export function Practice({ textShow }) {
                 inputRef.current.removeEventListener("keyup", keyUp);
                 inputRef.current.removeEventListener("keydown", handleFirstTyping);
             }
-        };
-    }, [firstTyping]);
+        }
+    }
+    }, [firstTyping, hasFinalized]);
+
+    function finishGame() {                    
+        const allCorrectWords = paragraphRef.current.querySelectorAll('x-word.correct').length
+        const allCorrectLetters = paragraphRef.current.querySelectorAll('x-letter.correct').length
+        const allIncorrectLetters = paragraphRef.current.querySelectorAll('x-letter.incorrect').length
+        const totalLetters = allCorrectLetters + allIncorrectLetters
+
+        setFinalModal(true)
+        setIsActive(false)
+        setHasFinalized(true)
+
+        setAccuracyTotal(totalLetters > 0
+        ? (Math.round((allCorrectLetters / totalLetters) * 100))    
+        : 0)
+
+        setWpmTotal((allCorrectWords * 60) / currentTime)
+    }
+
+    const handleCloseDialog = () => {
+        setFinalModal(false)
+        setShowTextInput(prevState => !prevState)
+        setOpacity(prevState => !prevState)
+    }
+
 
     return (
         <section style={{fontSize: isActive ? "35px": "30px"}} className="normalText">
+            <p>{currentTime}</p>
             <input ref={inputRef} type="text" autoFocus className="controlInput" />
             <p ref={paragraphRef}>
                 {
@@ -166,6 +222,29 @@ export function Practice({ textShow }) {
                     })
                 } 
             </p>
+
+            <Dialog open={finalModal} >
+                <DialogContent className="sm:max-w-md dialogStyle">
+                <DialogHeader>
+                    <h1>¡Tus resultados!</h1>
+                    <div className="resultsOfThePractice">
+                        <div className="wpmShow">
+                            <h1>Wpm</h1>
+                            <h3>{wpmTotal}</h3>
+                        </div>
+                        <div className="accuracyshow">
+                            <h1>Accuracy</h1>
+                            <h3>{accuracyTotal}</h3>
+                        </div>
+                    </div>
+                </DialogHeader>
+                <DialogFooter className="sm:justify-start">
+                    <button type="button" onClick={handleCloseDialog} className="buttonClose">
+                        Close
+                    </button>
+                </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </section>
     );
 }

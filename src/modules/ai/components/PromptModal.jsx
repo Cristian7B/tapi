@@ -7,18 +7,16 @@ import { useAi } from "../hooks/useAi";
 import { PulseLoader } from "react-spinners";
 import { saveApi } from "../local/localApiKey";
 import { Practice } from "./Practice";
-import { Settings } from "./Settings";
 
-export function Prompt() {
+export function PromptModal() {
     const {apiKey, prompt, setPrompt, isActive} = useAi()
     const [isCode, setIsCode] = useState(false)
     const [lenguaje, setLenguaje] = useState("")
-    const {opacity, setOpacity} = useAi()
+    const [opacity, setOpacity] = useState(false)
     const [textShow, setTextShow] = useState("")
     const [loading, setLoading] = useState(false);
-    const {showTextInput, setShowTextInput, style, styleOf, setNavBarStyle, setHeaderStyle, headerStyle} = useAi()
+    const {showTextInput, setShowTextInput, style, styleOf} = useAi()
 
-    
     const firstWordRef = useRef(null);
     const firstLetterRef = useRef(null);
     
@@ -36,6 +34,7 @@ export function Prompt() {
     const handlePrompt = event => {
         setPrompt(event.target.value)
     }
+
     const receiveText = async () => {   
         setLoading(true)
         saveApi(apiKey)
@@ -56,7 +55,6 @@ export function Prompt() {
         setShowTextInput(prevState => !prevState)
         setOpacity(prevState => !prevState)
     }
-
     return (
         <div style={{width: isActive ? "100%":"840px"}} className="containerPrompt">
             <div style={{...opacityStyle, display: isActive ? "none": "flex"}} className="upLayout">
@@ -65,11 +63,8 @@ export function Prompt() {
                 </Button>
                 <div className="settings">
                     <div className="switchContainer">
-                        <div className="switchLayout">
-                            <Switch className="oficialSwitch"/>
-                            <p>Modo código</p>
-                        </div>
-                        <Settings/>
+                        <Switch className="oficialSwitch"/>
+                        <p>Modo código</p>
                     </div>
                 </div>
             </div>

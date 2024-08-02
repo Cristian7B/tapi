@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useAi } from "../../ai/hooks/useAi";
 
 export function NavBar() {
+    const {isActive, navBarStyle} = useAi()
     return (
-        <nav className="navBarContainer">
+        <nav style={{...navBarStyle, display: isActive ? "none": "block"}} className="navBarContainer">
             <ul>
                 <div className="contentNav">
                     <div className="left">

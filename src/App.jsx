@@ -8,14 +8,16 @@ import { AiProvider } from "./modules/ai/context/AiContext"
 
 function App() {
   return (
+    <AiProvider>
       <Router>
         <NavBar/>
         <Routes>
           <Route path="/" element={<Landing/>}/>
-            <Route path="/practice" element={<AiProvider><KeyboardText/></AiProvider>}/>
+            <Route path="/practice" element={<KeyboardText/>}/>
         </Routes>
         <Footer/>
       </Router>  
+    </AiProvider>
   )
 }
 
