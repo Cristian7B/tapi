@@ -8,13 +8,24 @@ import {
 import iconSettings from "../../../assets/settings.svg"
 import { useState } from "react"
 import { useAi } from "../hooks/useAi"
+import { useEffect } from "react"
+import { saveTimePrev } from "../local/localApiKey"
 
 export function Settings() {
     const [showModal, setShowModal] = useState(false)
-    const {currentTime, setCurrentTime} = useAi()
+    const {currentTime, setCurrentTime, setTimeForLocal, timeForLocal} = useAi()
     const handleActiveModal = () => {
         setShowModal(true)
     }
+
+    useEffect(() => {
+        const timePrev = window.localStorage.getItem("timePrev");
+        console.log(timePrev)
+        if (timePrev) {
+            setTimeForLocal(timePrev)
+            setCurrentTime(timePrev)
+        } 
+    }, [])
 
     const hideActiveModal = () => {
         setShowModal(false)
@@ -22,6 +33,8 @@ export function Settings() {
 
     const changeTime = (e) => {
         setCurrentTime(e.target.value)
+        setTimeForLocal(e.target.value)
+        saveTimePrev(e.target.value)
     }
 
     console

@@ -29,6 +29,8 @@ export function Practice({ textShow }) {
     useEffect(() => {
         if (!firstTyping) return;
 
+        console.log(firstTyping)
+
         const intervalId = setInterval(() => {
             setCurrentTime(prevState => {
                 if (prevState === 1) {
@@ -199,6 +201,8 @@ export function Practice({ textShow }) {
 
     const handleCloseDialog = () => {
         setFinalModal(false)
+        setCurrentTime(30)
+        setFirstTyping(false)
         setShowTextInput(prevState => !prevState)
         setOpacity(prevState => !prevState)
     }
