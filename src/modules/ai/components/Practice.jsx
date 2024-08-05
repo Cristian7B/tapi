@@ -102,6 +102,10 @@ export function Practice({ textShow }) {
         };
 
         const keyUp = () => {
+            const allWords = document.querySelectorAll("x-word")
+            const lengthOfWords = allWords.length
+            const $lastWord = allWords[lengthOfWords-1].lastChild
+            
             setIsActive(true);
             const $currentWord = paragraphRef.current.querySelector("x-word.active");
             const currentLetter = $currentWord.querySelector("x-letter.active");
@@ -128,6 +132,13 @@ export function Practice({ textShow }) {
     
             const inputLength = inputRef.current.value.length;
             const $nextLetter = allLetters[inputLength];
+
+            if ($nextLetter === $lastWord) {
+                finishGame()
+                setCurrentTime(30)
+                setFirstTyping(false)
+            }
+
             if ($nextLetter) {
                 allLetters[inputLength].classList.add("active");
             } else {
@@ -180,9 +191,17 @@ export function Practice({ textShow }) {
     }
     }, [firstTyping, hasFinalized]);
 
-    function finishGame() {                    
-        const allCorrectWords = paragraphRef.current.querySelectorAll('x-word.correct').length
+    function finishGame() {
+        const words = document.querySelectorAll("x-word")   
+        const $lastWord = words[words.length - 1].querySelectorAll("x-letter")
+        const wordFinal = words[words.length - 1].querySelectorAll("x-letter.correct").length
+        let allCorrectWords = paragraphRef.current.querySelectorAll('x-word.correct').length
         const allCorrectLetters = paragraphRef.current.querySelectorAll('x-letter.correct').length
+
+        if ($lastWord.length === wordFinal+1) {
+            allCorrectWords += 1
+        }
+
         const allIncorrectLetters = paragraphRef.current.querySelectorAll('x-letter.incorrect').length
         const totalLetters = allCorrectLetters + allIncorrectLetters
 

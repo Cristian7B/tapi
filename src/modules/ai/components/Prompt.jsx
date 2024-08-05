@@ -48,7 +48,7 @@ export function Prompt() {
             setShowTextInput(prevState => !prevState);
             setOpacity(prevState => !prevState);
             setControlErrorOfApiKey(true);
-            setTextShow(keyboardTextShow);
+            setTextShow(keyboardTextShow.slice(0, -2));
         } catch (error) {
             console.log("Error al generar el texto:", error);
             setControlErrorOfApiKey(false);
@@ -68,6 +68,7 @@ export function Prompt() {
         setOpacity(prevState => !prevState)
     };
 
+    console.log(textShow)
     return (
         <div style={{ width: isActive ? "100%" : "840px" }} className="containerPrompt">
             <Toaster toastOptions={{
