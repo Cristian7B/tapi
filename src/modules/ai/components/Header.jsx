@@ -3,11 +3,12 @@ import { useAi } from "../hooks/useAi";
 import { Prompt } from "./Prompt";
 
 export function Header() {
-    const { setApiKey, style, isActive, headerStyle } = useAi();
+    const { setApiKey, style, isActive, headerStyle, setControlErrorOfApiKey } = useAi();
     const [valueInput, setValueInput] = useState("");
     const [placeholder, setPlaceholder] = useState(false);
 
     const handleApiKey = (event) => {
+        setControlErrorOfApiKey(true)
         const newValue = event.target.value;
         setValueInput(newValue);
         setApiKey(newValue);

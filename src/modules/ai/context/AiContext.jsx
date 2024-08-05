@@ -12,6 +12,8 @@ export function AiProvider({children}) {
     const [headerStyle, setHeaderStyle] = useState(null)
     const [opacity, setOpacity] = useState(false)
     const [currentTime, setCurrentTime] = useState(30)
+    
+    const [controlErrorOfApiKey, setControlErrorOfApiKey] = useState(true);
 
     const [timeForLocal, setTimeForLocal] = useState(30)
 
@@ -21,7 +23,7 @@ export function AiProvider({children}) {
     const styleOf = {display: showTextInput ? "none": "flex"}
 
     return (
-        <AiContext.Provider value={{apiKey, setApiKey, prompt, setPrompt, showTextInput, setShowTextInput, style, styleOf, firstTyping, setFirstTyping, isActive, setIsActive, navBarStyle, setNavBarStyle, setHeaderStyle, headerStyle, opacity, setOpacity, currentTime, setCurrentTime, setTimeForLocal, timeForLocal}}>
+        <AiContext.Provider value={{apiKey, setApiKey, prompt, setPrompt, showTextInput, setShowTextInput, style, styleOf, firstTyping, setFirstTyping, isActive, setIsActive, navBarStyle, setNavBarStyle, setHeaderStyle, headerStyle, opacity, setOpacity, currentTime, setCurrentTime, setTimeForLocal, timeForLocal, controlErrorOfApiKey, setControlErrorOfApiKey}}>
             {children}
         </AiContext.Provider>
     )

@@ -13,7 +13,7 @@ export function NavBar() {
                     <div className="right">
                         <p><Link to="/practice">Practicar</Link></p>
                         <p><a target="_blank" href="https://github.com/Cristian7B/tapi">GitHub</a></p>
-                        <p><Link to="/tecnologies">Tecnologías</Link></p>
+                        <p><Link to="/resultados">Resultados</Link></p>
                     </div>
                 </div>
             </ul>

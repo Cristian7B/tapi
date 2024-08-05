@@ -2,12 +2,13 @@ import github from "../../../assets/github-dark.svg"
 import linkedin from "../../../assets/linkedin.svg"
 import discord from "../../../assets/discord.svg"
 import { useAi } from "../../ai/hooks/useAi"
-
+import { useLocation } from "react-router-dom"
 
 export function Footer() {
     const {isActive} = useAi()
+    const location = useLocation()
     return (
-        <footer style={{display: isActive ? "none": "flex"}} className="footerContainer">
+        <footer style={{display: location.pathname === "/practice" ? "none": "flex"}} className="footerContainer">
             
             <div className="leftSide">
                 <p>&copy; Tapi. Todos los derechos reservados</p>
