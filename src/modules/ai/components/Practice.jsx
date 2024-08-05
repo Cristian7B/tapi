@@ -17,7 +17,6 @@ export function Practice({ textShow }) {
     const [hasFinalized, setHasFinalized] = useState(false)
 
     const {currentTime, setCurrentTime} = useAi()
-    const [allTime, setAllTime] = useState(0)
     const [initTime, setInitTime] = useState(false)
     const [finalModal, setFinalModal] = useState(false)
 
@@ -26,7 +25,7 @@ export function Practice({ textShow }) {
 
     const {firstTyping, setFirstTyping, setHeaderStyle, setShowTextInput, setOpacity} = useAi();
     const {isActive, setIsActive} = useAi();
-    
+
     useEffect(() => {
         if (!firstTyping) return;
 
@@ -38,7 +37,6 @@ export function Practice({ textShow }) {
                 }
                 return prevState - 1;
             });
-            setAllTime(prevState => prevState + 1);
         }, 1000);
 
         return () => clearInterval(intervalId);
@@ -107,7 +105,6 @@ export function Practice({ textShow }) {
             const allWords = document.querySelectorAll("x-word")
             const lengthOfWords = allWords.length
             const $lastWord = allWords[lengthOfWords-1].lastChild
-
             setIsActive(true);
             const $currentWord = paragraphRef.current.querySelector("x-word.active");
             const currentLetter = $currentWord.querySelector("x-letter.active");
@@ -214,9 +211,8 @@ export function Practice({ textShow }) {
         setAccuracyTotal(totalLetters > 0
         ? (Math.round((allCorrectLetters / totalLetters) * 100))    
         : 0)
-        
-        console.log(allCorrectWords, allTime)
-        setWpmTotal((allCorrectWords * 60) / allTime)
+
+        setWpmTotal((allCorrectWords * 60) / currentTime)
     }
 
     const handleCloseDialog = () => {
