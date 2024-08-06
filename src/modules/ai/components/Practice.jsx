@@ -9,22 +9,29 @@ import {
 } from "../../../components/ui/dialog"
 
 export function Practice({ textShow }) {
+
     const firstWordRef = useRef(null);
     const firstLetterRef = useRef(null);
     const inputRef = useRef(null);
     const paragraphRef = useRef(null);
 
     const [hasFinalized, setHasFinalized] = useState(false)
-
-    const {currentTime, setCurrentTime} = useAi()
-    const [initTime, setInitTime] = useState(false)
     const [finalModal, setFinalModal] = useState(false)
-
     const [wpmTotal, setWpmTotal] = useState(0)
     const [accuracyTotal, setAccuracyTotal] = useState(0)
 
-    const {firstTyping, setFirstTyping, setHeaderStyle, setShowTextInput, setOpacity} = useAi();
-    const {isActive, setIsActive} = useAi();
+    const {
+        firstTyping, 
+        setFirstTyping, 
+        setShowTextInput, 
+        setOpacity, 
+        currentTime, 
+        setCurrentTime,
+        isActive, 
+        setIsActive
+    } = useAi();
+
+    let var1 = 0
 
     useEffect(() => {
         if (!firstTyping) return;
@@ -37,6 +44,7 @@ export function Practice({ textShow }) {
                 }
                 return prevState - 1;
             });
+            var1 += 1
         }, 1000);
 
         return () => clearInterval(intervalId);
@@ -45,61 +53,61 @@ export function Practice({ textShow }) {
     useEffect(() => {
         if (!hasFinalized) {        
             const keyDown = (event) => {
-            const $currentWord = paragraphRef.current.querySelector("x-word.active");
-            const $currentLetter = $currentWord.querySelector("x-letter.active")
+                const $currentWord = paragraphRef.current.querySelector("x-word.active");
+                const $currentLetter = $currentWord.querySelector("x-letter.active")
 
-            const { key } = event
+                const { key } = event
 
-            if (key === " ") {
-                keyUp()
-                event.preventDefault()
-
-                const $nextWord = $currentWord.nextElementSibling
-                const $nextLetter = $nextWord.querySelector("x-letter")
-    
-                $currentWord.classList.remove("active", "marked")
-                $currentLetter.classList.remove("active")
-    
-                $nextWord.classList.add("active")
-                $nextLetter.classList.add("active")
-    
-                inputRef.current.value = ""
-    
-                const previousErrors = $currentWord.querySelectorAll("x-letter:not(.correct)"). length > 0
-    
-                const classToAdd = previousErrors ? "marked": "correct"
-                $currentWord.classList.add(classToAdd)
-    
-                return
-            }
-
-            if (key === "Backspace") {
-                const $prevWord = $currentWord.previousElementSibling
-                const $prevLetter = $currentLetter.previousElementSibling
-    
-                if (!$prevLetter && !$prevWord) {
+                if (key === " ") {
+                    keyUp()
                     event.preventDefault()
-                    return 
-                }
-    
-                if (!$prevLetter) {
-                    event.preventDefault()
-                    $prevWord.classList.remove("marked")
-                    $prevWord.classList.add("active")
-                    
-                    const $letterToGo = $prevWord.querySelector("x-letter:last-child")
-    
+
+                    const $nextWord = $currentWord.nextElementSibling
+                    const $nextLetter = $nextWord.querySelector("x-letter")
+        
+                    $currentWord.classList.remove("active", "marked")
                     $currentLetter.classList.remove("active")
-                    $letterToGo.classList.add("active")
-    
-                    inputRef.current.value = [
-                        ...$prevWord.querySelectorAll("x-letter.correct", "x-letter.marked")
-                    ].map(el => {
-                        return el.classList.contains("correct") ? el.innerText : "ç"
-                    }).join("")
+        
+                    $nextWord.classList.add("active")
+                    $nextLetter.classList.add("active")
+        
+                    inputRef.current.value = ""
+        
+                    const previousErrors = $currentWord.querySelectorAll("x-letter:not(.correct)"). length > 0
+        
+                    const classToAdd = previousErrors ? "marked": "correct"
+                    $currentWord.classList.add(classToAdd)
+        
+                    return
                 }
-            }
-        };
+
+                if (key === "Backspace") {
+                    const $prevWord = $currentWord.previousElementSibling
+                    const $prevLetter = $currentLetter.previousElementSibling
+        
+                    if (!$prevLetter && !$prevWord) {
+                        event.preventDefault()
+                        return 
+                    }
+        
+                    if (!$prevLetter) {
+                        event.preventDefault()
+                        $prevWord.classList.remove("marked")
+                        $prevWord.classList.add("active")
+                        
+                        const $letterToGo = $prevWord.querySelector("x-letter:last-child")
+        
+                        $currentLetter.classList.remove("active")
+                        $letterToGo.classList.add("active")
+        
+                        inputRef.current.value = [
+                            ...$prevWord.querySelectorAll("x-letter.correct", "x-letter.marked")
+                        ].map(el => {
+                            return el.classList.contains("correct") ? el.innerText : "ç"
+                        }).join("")
+                    }
+                }
+            };
 
         const keyUp = () => {
             const allWords = document.querySelectorAll("x-word")
@@ -193,6 +201,8 @@ export function Practice({ textShow }) {
     function finishGame() {
         const words = document.querySelectorAll("x-word")   
         const $lastWord = words[words.length - 1].querySelectorAll("x-letter")
+
+
         const wordFinal = words[words.length - 1].querySelectorAll("x-letter.correct").length
         let allCorrectWords = paragraphRef.current.querySelectorAll('x-word.correct').length
         const allCorrectLetters = paragraphRef.current.querySelectorAll('x-letter.correct').length
@@ -212,7 +222,9 @@ export function Practice({ textShow }) {
         ? (Math.round((allCorrectLetters / totalLetters) * 100))    
         : 0)
 
-        setWpmTotal((allCorrectWords * 60) / currentTime)
+            
+        setWpmTotal(Math.floor((allCorrectWords * 60) / var1))
+
     }
 
     const handleCloseDialog = () => {
@@ -225,17 +237,33 @@ export function Practice({ textShow }) {
 
 
     return (
-        <section style={{fontSize: isActive ? "35px": "30px"}} className="normalText">
+        <section 
+            style={{fontSize: isActive ? "35px": "30px"}} 
+            className="normalText"
+        >
             <p>{currentTime}</p>
-            <input ref={inputRef} type="text" autoFocus className="controlInput" />
+            <input 
+                ref={inputRef} 
+                type="text" 
+                autoFocus 
+                className="controlInput" 
+            />
             <p ref={paragraphRef}>
                 {
                     textShow.split(" ").map((word, wordIndex) => {
                         const letters = word.split("");
                         return (
-                            <x-word ref={wordIndex === 0 ? firstWordRef : null} key={wordIndex}>
+                            <x-word 
+                                ref={wordIndex === 0 ? firstWordRef : null} 
+                                key={wordIndex}
+                            >
                                 {letters.map((letter, letterIndex) => (
-                                    <x-letter ref={wordIndex === 0 && letterIndex === 0 ? firstLetterRef : null} key={letterIndex}>{letter}</x-letter>
+                                    <x-letter 
+                                        ref={wordIndex === 0 && letterIndex === 0 ? firstLetterRef : null} 
+                                        key={letterIndex}
+                                    >
+                                        {letter}
+                                    </x-letter>
                                 ))}
                             </x-word>
                         );
@@ -259,7 +287,10 @@ export function Practice({ textShow }) {
                     </div>
                 </DialogHeader>
                 <DialogFooter className="sm:justify-start">
-                    <button type="button" onClick={handleCloseDialog} className="buttonClose">
+                    <button 
+                        type="button" 
+                        onClick={handleCloseDialog} 
+                        className="buttonClose">
                         Close
                     </button>
                 </DialogFooter>

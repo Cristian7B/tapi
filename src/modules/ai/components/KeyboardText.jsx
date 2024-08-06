@@ -10,8 +10,8 @@ export function KeyboardText() {
     const [isCode, setIsCode] = useState(false)
     const [lenguaje, setLenguaje] = useState("")
     const [textShow, setTextShow] = useState("")
-    const {isActive} = useAi()
     const [apiKey, setApiKey] = useState(null)
+    const {isActive} = useAi()
 
     const handleApiKey = (event) => {
         setApiKey(event.target.value)

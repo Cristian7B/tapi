@@ -269,7 +269,12 @@ img, video, svg { height: auto; max-width: 100%; }
     align-items: center;
 }
 
+.anchordForButton {
+    height: 100%;
+}
+
 .buttonGo, .buttonLogin{
+    height: 100%;
     outline: 0;
     border: 0;
     padding: 10px 15px;
@@ -341,7 +346,7 @@ img, video, svg { height: auto; max-width: 100%; }
 
 .rightSide {
     display: flex;
-    gap: 5px;
+    gap: 8px;
 }
 
 .socialMedia img {

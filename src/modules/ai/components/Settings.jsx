@@ -39,8 +39,15 @@ export function Settings() {
 
     return (
         <>
-            <div onClick={handleActiveModal} className="showSettings">
-                <img src={iconSettings} className="settingsIcon" alt="" />
+            <div 
+                onClick={handleActiveModal} 
+                className="showSettings"
+            >
+                <img 
+                    src={iconSettings} 
+                    className="settingsIcon" 
+                    alt="" 
+                />
             </div>
             <Dialog open={showModal} >
                 <DialogContent className="sm:max-w-md dialogStyle">
@@ -48,12 +55,20 @@ export function Settings() {
                     <h1 style={{marginBottom: "20px"}}>Configuraciones</h1>
                     <div className="inputForTime">
                         <label htmlFor="inputTime">Tiempo</label>
-                        <input type="number" id="inputTime" onChange={changeTime} />
+                        <input 
+                            type="number" 
+                            id="inputTime" 
+                            onChange={changeTime} 
+                        />
                     </div>
                 </DialogHeader>
                 <DialogFooter className="sm:justify-start">
-                    <button type="button" onClick={hideActiveModal} className="buttonCloseDialog">
-                        Terminar
+                    <button 
+                        type="button" 
+                        onClick={hideActiveModal} 
+                        className="buttonCloseDialog"
+                    >
+                        Configurar
                     </button>
                 </DialogFooter>
                 </DialogContent>
