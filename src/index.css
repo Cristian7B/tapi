@@ -646,3 +646,8 @@ x-word {
     color: #EEE1B3 !important;
 }
 
+.tippy-box {
+    background-color: #177E89;
+    border-radius: 8px;
+    font-weight: 400;
+}

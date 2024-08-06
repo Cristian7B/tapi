@@ -10,6 +10,9 @@ import { Practice } from "./Practice";
 import { Settings } from "./Settings";
 import { toast, Toaster } from "sonner"
 import infoIcon from "../../../assets/infoIcon.svg"
+import tippy from "tippy.js";
+import 'tippy.js/dist/tippy.css'; 
+import 'tippy.js/animations/scale-subtle.css';
 
 export function Prompt() {
     const { 
@@ -42,6 +45,12 @@ export function Prompt() {
     const handlePrompt = (event) => {
         setPrompt(event.target.value);
     };
+
+    tippy("#infoForToolTip", {
+        content: "¡Próximamente!",
+        arrow: false,
+        animation: "scale-subtle"
+    })
 
     const receiveText = async () => {   
         setLoading(true);
@@ -103,6 +112,7 @@ export function Prompt() {
                             <Switch className="oficialSwitch"/>
                             <p>Modo código</p>
                             <img 
+                                id="infoForToolTip"
                                 src={infoIcon} 
                                 className="w-4" 
                                 alt="Icono de mas información" 
